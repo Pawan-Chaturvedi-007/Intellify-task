@@ -1,24 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import FormContainer from './form/containers/FormContainer';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import FormViewContainer from './form/containers/FormViewContainer';
+import { FormContext } from './form/context';
+import { useState } from 'react';
 
 function App() {
+  const [formValue, setFormValue] = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex justify-center items-center">
+      <FormContext.Provider value={{ formValue, setFormValue }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/form-item" Component={FormViewContainer} />
+            <Route path="/" Component={FormContainer} />
+          </Routes>
+        </BrowserRouter>
+      </FormContext.Provider>
     </div>
+
   );
 }
 
